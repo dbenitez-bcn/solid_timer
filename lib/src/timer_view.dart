@@ -29,15 +29,19 @@ class TimerProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: TimerPainter(percentage),
+      painter: TimerPainter(
+        percentage,
+        color: Theme.of(context).primaryColor,
+      ),
     );
   }
 }
 
 class TimerPainter extends CustomPainter {
   final double percentage;
+  final Color color;
 
-  TimerPainter(this.percentage);
+  TimerPainter(this.percentage, {required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -52,7 +56,7 @@ class TimerPainter extends CustomPainter {
     const start = -math.pi / 2;
     final end = (2 * math.pi) * percentage;
     final paint = Paint()
-      ..color = Colors.blue
+      ..color = color
       ..strokeWidth = 10
       ..style = PaintingStyle.stroke;
     canvas.drawArc(rect, start, end, false, paint);
