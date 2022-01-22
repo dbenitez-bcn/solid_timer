@@ -1,3 +1,3 @@
 library solid_timer;
 
-export 'src/timer_view.dart';
+export 'src/widgets/solid_timer_view.dart';
