@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solid_timer/src/bloc/solid_timer_bloc.dart';
-import 'package:solid_timer/src/widgets/controll_buttons.dart';
+import 'package:solid_timer/src/widgets/control_buttons.dart';
 import 'package:solid_timer/src/widgets/timer_view.dart';
 
 class SolidTimer extends StatelessWidget {
@@ -17,7 +17,7 @@ class SolidTimer extends StatelessWidget {
             height: MediaQuery.of(context).size.width,
             child: TimerView(),
           ),
-          ControllButtons()
+          ControlButtons()
         ],
       ),
     );

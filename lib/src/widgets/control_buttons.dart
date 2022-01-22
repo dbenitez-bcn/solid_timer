@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:solid_timer/src/bloc/solid_timer_bloc.dart';
 import 'package:solid_timer/src/bloc/status.dart';
 
-class ControllButtons extends StatelessWidget {
-  const ControllButtons({Key? key}) : super(key: key);
+class ControlButtons extends StatelessWidget {
+  const ControlButtons({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
