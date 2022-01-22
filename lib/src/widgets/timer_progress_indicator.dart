@@ -32,18 +32,16 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          return CustomPaint(
-            painter: TimerPainter(
-              percentage: _animation.value,
-              color: Theme.of(context).primaryColor,
-            ),
-          );
-        },
-      ),
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return CustomPaint(
+          painter: TimerPainter(
+            percentage: _animation.value,
+            color: Theme.of(context).primaryColor,
+          ),
+        );
+      },
     );
   }
 }

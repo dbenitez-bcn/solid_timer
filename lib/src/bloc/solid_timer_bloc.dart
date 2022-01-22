@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:solid_timer/src/bloc/status.dart';
 
-class SolidTimerBloc {
+class SolidTimerBloc extends InheritedWidget {
   final StreamController<Status> _statusController = StreamController<Status>();
 
-  SolidTimerBloc() {
+  SolidTimerBloc({Key? key, required child}) : super(key: key, child: child) {
     _statusController.add(Status.ready);
   }
 
@@ -22,4 +23,11 @@ class SolidTimerBloc {
   void pause() {
     _statusController.add(Status.waiting);
   }
+
+  static SolidTimerBloc of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SolidTimerBloc>()!;
+  }
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
 }
