@@ -39,7 +39,6 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
       vsync: this,
       duration: Duration(seconds: widget.duration),
     )..repeat();
-    // _animation = Tween<double>(begin: 2.0, end: 3.0)
     _animation = Tween<double>(begin: 0.0, end: 1)
         .animate(_controller);
     super.initState();
