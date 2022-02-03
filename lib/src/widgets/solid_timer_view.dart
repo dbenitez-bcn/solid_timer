@@ -3,6 +3,7 @@ import 'package:solid_timer/src/bloc/solid_timer_bloc.dart';
 import 'package:solid_timer/src/persistance/sqflite_db_helper.dart';
 import 'package:solid_timer/src/persistance/sqflite_timer_repository.dart';
 import 'package:solid_timer/src/widgets/control_buttons.dart';
+import 'package:solid_timer/src/widgets/timer_buttons.dart';
 import 'package:solid_timer/src/widgets/timer_view.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,6 +28,7 @@ class SolidTimer extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  const TimerButtons(),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.width,
