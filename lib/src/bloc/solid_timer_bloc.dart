@@ -52,4 +52,9 @@ class SolidTimerBloc extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+
+  void dispose() {
+    _statusController.close();
+    _timersController.close();
+  }
 }

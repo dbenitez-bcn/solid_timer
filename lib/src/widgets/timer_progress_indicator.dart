@@ -44,6 +44,12 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
       },
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
 
 class TimerPainter extends CustomPainter {
