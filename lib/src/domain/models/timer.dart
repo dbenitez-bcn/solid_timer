@@ -17,4 +17,11 @@ class Timer {
     }
     return false;
   }
+
+  String toClockFormat() {
+    int minutes = (this.seconds / 60).truncate();
+    int seconds = this.seconds - (minutes * 60);
+    return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
+  }
+
 }
