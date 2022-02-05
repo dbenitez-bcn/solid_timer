@@ -11,7 +11,7 @@ class SolidTimer extends StatelessWidget {
   const SolidTimer({Key? key}) : super(key: key);
 
   Future<void> foo() async {
-    // await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     await dbInitialization();
   }
 
