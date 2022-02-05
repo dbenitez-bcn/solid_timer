@@ -15,7 +15,10 @@ class TimerButtons extends StatelessWidget {
       stream: solidTimerBloc.timers,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return Container();
+          return const Opacity(
+            opacity: 0,
+            child: AddTimerButton.disabled(),
+          );
         }
         return Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
