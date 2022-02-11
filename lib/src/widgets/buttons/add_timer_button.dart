@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solid_timer/src/bloc/solid_timer_bloc.dart';
 import 'package:solid_timer/src/widgets/buttons/base_solid_timer_button.dart';
+import 'package:solid_timer/src/widgets/new_timer_screen.dart';
 
 class AddTimerButton extends BaseSolidTimerButton {
   AddTimerButton.enabled({
@@ -9,7 +10,10 @@ class AddTimerButton extends BaseSolidTimerButton {
   }) : super(
           key: key,
           onPressed: () {
-            SolidTimerBloc.of(context).addTimer(10);
+            var bloc = SolidTimerBloc.of(context);
+            Navigator.of(context).push(MaterialPageRoute<void>(
+              builder: (BuildContext context) => NewTimerScreen(bloc: bloc),
+            ));
           },
           child: const Icon(Icons.add),
         );
