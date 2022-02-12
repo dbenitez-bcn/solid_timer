@@ -1,14 +1,14 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:solid_timer/src/domain/models/timer.dart';
 
 
 class TimerProgressIndicator extends StatefulWidget {
-  final int duration;
+  final Timer timer;
 
-  const TimerProgressIndicator({Key? key, required this.duration})
-      : assert(duration >= 0),
-        super(key: key);
+  const TimerProgressIndicator({Key? key, required this.timer})
+      : super(key: key);
 
   @override
   State<TimerProgressIndicator> createState() => _TimerProgressIndicatorState();
@@ -23,7 +23,7 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: widget.duration),
+      duration: Duration(seconds: widget.timer.seconds),
     )..repeat();
     _animation = Tween<double>(begin: 0.0, end: 1)
         .animate(_controller);
