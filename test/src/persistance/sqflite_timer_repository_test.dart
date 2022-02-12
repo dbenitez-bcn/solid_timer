@@ -32,10 +32,31 @@ void main() {
   });
 
   test("given an id should delete the timer", () async {
-    when(database.delete("timers",  where: 'id = ?', whereArgs: [1])).thenAnswer((_) async => 1);
+    when(database.delete("timers", where: 'id = ?', whereArgs: [1]))
+        .thenAnswer((_) async => 1);
 
     await sut.deleteBy(id: 1);
 
-    verify(database.delete("timers",  where: 'id = ?', whereArgs: [1]));
+    verify(database.delete("timers", where: 'id = ?', whereArgs: [1]));
+  });
+
+  test("Should return the last selected timer", () async {
+    when(database.query("last_selected_timer", where: 'id = 1'))
+        .thenAnswer((_) async => [
+              {"id": 1, "seconds": 10},
+            ]);
+
+    var got = await sut.getLastSelectedTimer();
+
+    expect(got, Timer(1, 10));
+  });
+
+  test("Should return nothing if there is no selected timer", () async {
+    when(database.query("last_selected_timer", where: 'id = 1'))
+        .thenAnswer((_) async => []);
+
+    var got = await sut.getLastSelectedTimer();
+
+    expect(got, isNull);
   });
 }

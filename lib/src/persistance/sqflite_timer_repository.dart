@@ -26,4 +26,14 @@ class SqfliteTimerRepository extends TimerRepository {
     await database.delete("timers",  where: 'id = ?', whereArgs: [id]);
   }
 
+  @override
+  Future<Timer?> getLastSelectedTimer() async {
+    var timers = await database.query("last_selected_timer", where: "id = 1");
+    if (timers.isNotEmpty) {
+      return Timer.fromMap(timers.first);
+    } else {
+      return null;
+    }
+  }
+
 }
