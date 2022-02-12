@@ -1,8 +1,10 @@
 class Timer {
   final int id;
-  final int seconds;
+  late final int seconds;
 
-  Timer(this.id, this.seconds);
+  Timer(this.id, int seconds) {
+    this.seconds = seconds < 6000 ? seconds : 5999;
+  }
 
   Timer.fromMap(Map<String, dynamic> map)
       : id = map["id"],
@@ -23,5 +25,4 @@ class Timer {
     int seconds = this.seconds - (minutes * 60);
     return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
-
 }

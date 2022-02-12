@@ -10,6 +10,8 @@ void main() {
         Timer(0, 12): "00:12",
         Timer(0, 300): "05:00",
         Timer(0, 605): "10:05",
+        Timer(0, 5999): "99:59",
+        Timer(0, 6000): "99:59",
       };
 
       inputToExpected.forEach((timer, expected) {
