@@ -9,7 +9,9 @@ class TimerButton extends BaseSolidTimerButton {
   TimerButton({Key? key, required Timer timer, required BuildContext context})
       : super(
           key: key,
-          onPressed: null,
+          onPressed: () {
+            SolidTimerBloc.of(context).select(timer);
+          },
           onLongPress: () {
             SolidTimerBloc.of(context).remove(timer.id);
           },

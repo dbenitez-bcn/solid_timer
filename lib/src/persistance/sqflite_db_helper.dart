@@ -8,6 +8,9 @@ const List<String> _migrations = [
   ''',
   '''
   CREATE TABLE last_selected_timer (id INTEGER PRIMARY KEY, seconds INTEGER NOT NULL)
+  ''',
+  '''
+  INSERT INTO last_selected_timer(id, seconds) VALUES(1, 60)
   '''
 ];
 const List<String> _downgrades = [
@@ -16,11 +19,14 @@ const List<String> _downgrades = [
   ''',
   '''
   DROP TABLE IF EXISTS last_selected_timer
+  ''',
+  '''
+  DELETE FROM last_selected_timer WHERE id = 1 
   '''
 ];
 
 Future<Database> dbInitialization() async {
-  return await openDatabase("solid_timer.db", version: 2, onCreate: _onCreate, onUpgrade: _onUpdate, onDowngrade: _onDowngrade);
+  return await openDatabase("solid_timer.db", version: _migrations.length, onCreate: _onCreate, onUpgrade: _onUpdate, onDowngrade: _onDowngrade);
 }
 
 Future<void> _onCreate(Database db, int version) async {

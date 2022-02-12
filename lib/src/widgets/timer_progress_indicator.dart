@@ -21,6 +21,7 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
 
   @override
   void initState() {
+    print("timer seocnds ${widget.timer.seconds}");
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.timer.seconds),
