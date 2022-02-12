@@ -15,15 +15,13 @@ class SqfliteTimerRepository extends TimerRepository {
 
   @override
   Future<List<Timer>> getAll() async {
-    final list = await database
-        .query("timers", columns: ["id", "seconds"]);
-    return list.map((e) => Timer.fromMap(e))
-        .toList();
+    final list = await database.query("timers", columns: ["id", "seconds"]);
+    return list.map((e) => Timer.fromMap(e)).toList();
   }
 
   @override
   Future<void> deleteBy({required int id}) async {
-    await database.delete("timers",  where: 'id = ?', whereArgs: [id]);
+    await database.delete("timers", where: 'id = ?', whereArgs: [id]);
   }
 
   @override
@@ -36,4 +34,14 @@ class SqfliteTimerRepository extends TimerRepository {
     }
   }
 
+  @override
+  Future<Timer> updateLastSelectedTimer(Timer timer) async {
+    await database.update(
+      "last_selected_timer",
+      {"seconds": timer.seconds},
+      where: "id = 1",
+    );
+
+    return Timer(1, timer.seconds);
+  }
 }

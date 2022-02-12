@@ -5,4 +5,5 @@ abstract class TimerRepository {
   Future<Timer> create({required int seconds});
   Future<void> deleteBy({required int id});
   Future<Timer?> getLastSelectedTimer();
+  Future<Timer> updateLastSelectedTimer(Timer timer);
 }

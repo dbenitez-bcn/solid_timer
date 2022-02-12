@@ -59,4 +59,15 @@ void main() {
 
     expect(got, isNull);
   });
+
+  test("Should update the given last selected timer", () async {
+    final Timer givenTimer = Timer(2, 52);
+    final Timer expectedTimer = Timer(1, 52);
+    when(database.update("last_selected_timer", {"seconds": 52}, where: "id = 1"))
+        .thenAnswer((_) async => 1);
+
+    Timer got = await sut.updateLastSelectedTimer(givenTimer);
+
+    expect(got, expectedTimer);
+  });
 }
