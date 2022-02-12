@@ -17,9 +17,11 @@ class _NewTimerScreenState extends State<NewTimerScreen> {
   String time = "";
 
   void amend(String value) {
+    if (_isTimeEmpty() && value == "0") return;
     if (time.length < 4) {
       setState(() {
         time += value;
+        print("time $time");
       });
     }
   }
@@ -41,6 +43,10 @@ class _NewTimerScreenState extends State<NewTimerScreen> {
     setState(() {
       time = "";
     });
+  }
+
+  bool _isTimeEmpty() {
+    return time.padLeft(4, "0") == "0000";
   }
 
   @override
@@ -169,13 +175,15 @@ class _NewTimerScreenState extends State<NewTimerScreen> {
                     child: const Icon(Icons.close),
                   ),
                   BaseSolidTimerButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      var tmp = formatTime().split(":");
-                      int minutes = int.parse(tmp[0]);
-                      int seconds = int.parse(tmp[1]);
-                      widget.bloc.addTimer((minutes * 60) + seconds);
-                    },
+                    onPressed: !_isTimeEmpty()
+                        ? () {
+                            Navigator.of(context).pop();
+                            var tmp = formatTime().split(":");
+                            int minutes = int.parse(tmp[0]);
+                            int seconds = int.parse(tmp[1]);
+                            widget.bloc.addTimer((minutes * 60) + seconds);
+                          }
+                        : null,
                     child: const Icon(Icons.check),
                   ),
                 ],
