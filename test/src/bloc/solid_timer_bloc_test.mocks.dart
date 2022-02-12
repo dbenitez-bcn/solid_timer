@@ -42,4 +42,8 @@ class MockTimerRepository extends _i1.Mock implements _i3.TimerRepository {
       (super.noSuchMethod(Invocation.method(#deleteBy, [], {#id: id}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<_i2.Timer?> getLastSelectedTimer() =>
+      (super.noSuchMethod(Invocation.method(#getLastSelectedTimer, []),
+          returnValue: Future<_i2.Timer?>.value()) as _i4.Future<_i2.Timer?>);
 }

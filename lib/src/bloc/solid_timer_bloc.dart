@@ -9,6 +9,7 @@ class SolidTimerBloc extends InheritedWidget {
   final TimerRepository _repository;
   final _statusController = StreamController<Status>();
   final _timersController = StreamController<List<Timer>>();
+  final _selectedTimerController = StreamController<Timer>();
 
   SolidTimerBloc(this._repository, {Key? key, child})
       : super(key: key, child: child ?? Container()) {
@@ -19,6 +20,8 @@ class SolidTimerBloc extends InheritedWidget {
   get status => _statusController.stream;
 
   get timers => _timersController.stream;
+
+  get selectedTimer => _selectedTimerController.stream;
 
   void play() {
     _statusController.add(Status.playing);
@@ -34,6 +37,7 @@ class SolidTimerBloc extends InheritedWidget {
 
   void load() async {
     _timersController.add(await _repository.getAll());
+    _selectedTimerController.add(await _repository.getLastSelectedTimer() ?? Timer(1, 30));
   }
 
   void addTimer(int seconds) async{
@@ -44,6 +48,10 @@ class SolidTimerBloc extends InheritedWidget {
   void remove(int id) async {
     await _repository.deleteBy(id: id);
     load();
+  }
+
+  void select(Timer newTimer) {
+    _selectedTimerController.add(newTimer);
   }
 
   static SolidTimerBloc of(BuildContext context) {
