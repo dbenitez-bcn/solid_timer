@@ -21,7 +21,6 @@ class _NewTimerScreenState extends State<NewTimerScreen> {
     if (time.length < 4) {
       setState(() {
         time += value;
-        print("time $time");
       });
     }
   }

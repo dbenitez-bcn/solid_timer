@@ -6,9 +6,9 @@ class Timer {
     this.seconds = seconds < 6000 ? seconds : 5999;
   }
 
-  Timer.fromMap(Map<String, dynamic> map)
-      : id = map["id"],
-        seconds = map["seconds"];
+  Timer.fromMap(Map<String, dynamic> map) : id = map["id"] {
+    seconds = map["seconds"] < 6000 ? map["seconds"] : 5999;
+  }
 
   @override
   bool operator ==(Object other) {
