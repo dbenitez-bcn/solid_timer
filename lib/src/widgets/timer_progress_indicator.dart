@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:solid_timer/src/domain/models/timer.dart';
 
-
 class TimerProgressIndicator extends StatefulWidget {
   final Timer timer;
 
@@ -21,29 +20,38 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
 
   @override
   void initState() {
-    print("timer seocnds ${widget.timer.seconds}");
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.timer.seconds),
     )..repeat();
-    _animation = Tween<double>(begin: 0.0, end: 1)
-        .animate(_controller);
+    _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return CustomPaint(
-          painter: TimerPainter(
-            percentage: _animation.value,
-            color: Theme.of(context).primaryColor,
-          ),
-        );
-      },
-    );
+    return Stack(alignment: AlignmentDirectional.center, children: [
+      Text(
+        widget.timer.toClockFormat(),
+        style: Theme.of(context)
+            .textTheme
+            .headline1
+            ?.copyWith(fontWeight: FontWeight.w300),
+      ),
+      Positioned.fill(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return CustomPaint(
+              painter: TimerPainter(
+                percentage: _animation.value,
+                color: Theme.of(context).primaryColor,
+              ),
+            );
+          },
+        ),
+      ),
+    ]);
   }
 
   @override

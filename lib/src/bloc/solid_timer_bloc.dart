@@ -51,9 +51,7 @@ class SolidTimerBloc extends InheritedWidget {
   }
 
   void select(Timer newTimer) async {
-    print("newTimer $newTimer");
     var timer = await _repository.updateLastSelectedTimer(newTimer);
-    print("timer $timer");
     _selectedTimerController.add(timer);
   }
 
