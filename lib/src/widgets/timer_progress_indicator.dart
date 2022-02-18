@@ -18,6 +18,11 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  String get timerString {
+    Duration duration = _controller.duration! * (1 - _controller.value);
+    return '${(duration.inMinutes).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
   @override
   void initState() {
     _controller = AnimationController(
@@ -31,12 +36,17 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
   @override
   Widget build(BuildContext context) {
     return Stack(alignment: AlignmentDirectional.center, children: [
-      Text(
-        widget.timer.toClockFormat(),
-        style: Theme.of(context)
-            .textTheme
-            .headline1
-            ?.copyWith(fontWeight: FontWeight.w300),
+      AnimatedBuilder(
+        animation: _animation,
+        builder: (_, child) {
+          return Text(
+            timerString,
+            style: Theme.of(context)
+                .textTheme
+                .headline1
+                ?.copyWith(fontWeight: FontWeight.w300),
+          );
+        },
       ),
       Positioned.fill(
         child: AnimatedBuilder(
