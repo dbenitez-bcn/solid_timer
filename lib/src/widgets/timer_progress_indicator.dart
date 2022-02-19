@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:solid_timer/src/bloc/solid_timer_bloc.dart';
+import 'package:solid_timer/src/bloc/status.dart';
 import 'package:solid_timer/src/domain/models/timer.dart';
 
 class TimerProgressIndicator extends StatefulWidget {
@@ -18,9 +20,23 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  String get timerString {
+  String get _timerString {
     Duration duration = _controller.duration! * (1 - _controller.value);
     return '${(duration.inMinutes).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+  }
+
+  void _onStatusChange(Status status) {
+    switch(status) {
+      case Status.ready:
+        _controller.reset();
+        break;
+      case Status.playing:
+        _controller.repeat();
+        break;
+      case Status.waiting:
+        _controller.stop();
+        break;
+    }
   }
 
   @override
@@ -28,19 +44,21 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.timer.seconds),
-    )..repeat();
+    );
     _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    SolidTimerBloc.of(context).status.listen(_onStatusChange);
+
     return Stack(alignment: AlignmentDirectional.center, children: [
       AnimatedBuilder(
         animation: _animation,
         builder: (_, child) {
           return Text(
-            timerString,
+            _timerString,
             style: Theme.of(context)
                 .textTheme
                 .headline1

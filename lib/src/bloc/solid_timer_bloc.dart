@@ -7,7 +7,7 @@ import 'package:solid_timer/src/domain/models/timer.dart';
 
 class SolidTimerBloc extends InheritedWidget {
   final TimerRepository _repository;
-  final _statusController = StreamController<Status>();
+  final _statusController = StreamController<Status>.broadcast();
   final _timersController = StreamController<List<Timer>>();
   final _selectedTimerController = StreamController<Timer>();
 
@@ -17,7 +17,7 @@ class SolidTimerBloc extends InheritedWidget {
     _timersController.add([]);
   }
 
-  get status => _statusController.stream;
+  Stream<Status> get status => _statusController.stream;
 
   get timers => _timersController.stream;
 
