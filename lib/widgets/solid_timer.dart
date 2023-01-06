@@ -29,6 +29,7 @@ class SolidTimer extends StatelessWidget {
         await configurationRepository.getIsSoundEnabled(),
         await configurationRepository.getIsInfiniteRoundEnabled(),
         Status.ready,
+        0,
       ),
       configurationRepository,
       timersRepository,

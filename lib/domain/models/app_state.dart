@@ -8,6 +8,7 @@ class AppState {
   bool isSoundEnabled;
   bool isInfiniteRoundsEnabled;
   Status status;
+  int pageIndex;
 
   AppState(
     this.timersList,
@@ -15,5 +16,6 @@ class AppState {
     this.isSoundEnabled,
     this.isInfiniteRoundsEnabled,
     this.status,
+    this.pageIndex
   );
 }

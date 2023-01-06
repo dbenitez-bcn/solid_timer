@@ -12,10 +12,11 @@ class SolidTimerBloc extends InheritedWidget {
   final TimerRepository _timerRepository;
   final ConfigurationRepository _configurationRepository;
   final _statusController = StreamController<Status>.broadcast();
-  final _timersController = StreamController<List<Timer>>();
-  final _soundController = StreamController<bool>();
-  final _infiniteController = StreamController<bool>();
+  final _timersController = StreamController<List<Timer>>.broadcast();
+  final _soundController = StreamController<bool>.broadcast();
+  final _infiniteController = StreamController<bool>.broadcast();
   final _selectedTimerController = StreamController<Timer>.broadcast();
+  final _pageController = StreamController<int>.broadcast();
   final AppState _appState;
 
   SolidTimerBloc(
@@ -27,6 +28,7 @@ class SolidTimerBloc extends InheritedWidget {
     _selectedTimerController.add(_appState.lastSelectedTimer);
     _soundController.add(_appState.isSoundEnabled);
     _infiniteController.add(_appState.isInfiniteRoundsEnabled);
+    _pageController.add(_appState.pageIndex);
   }
 
   Stream<Status> get status => _statusController.stream;
@@ -39,11 +41,15 @@ class SolidTimerBloc extends InheritedWidget {
 
   Stream<bool> get infiniteRoundsStream => _infiniteController.stream;
 
+  Stream<int> get pageStream => _pageController.stream;
+
   Timer get currentTimer => _appState.lastSelectedTimer;
 
   bool get isSoundEnabled => _appState.isSoundEnabled;
 
   bool get isInfiniteRoundsEnabled => _appState.isInfiniteRoundsEnabled;
+
+  int get currentPage => _appState.pageIndex;
 
   void play() {
     _statusController.add(Status.playing);
@@ -77,6 +83,10 @@ class SolidTimerBloc extends InheritedWidget {
     _appState.lastSelectedTimer = newTimer;
     var timer = await _timerRepository.updateLastSelectedTimer(newTimer);
     _selectedTimerController.add(timer);
+  }
+
+  void updatePage(int index){
+    _pageController.add(index);
   }
 
   Future<void> toggleSound() async {

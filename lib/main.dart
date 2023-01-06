@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:solid_timer/widgets/solid_timer.dart';
+import 'package:solid_timer/widgets/solid_timer_home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const Scaffold(
-        body: SolidTimer(),
+        body: SolidTimerHome(),
       ),
     );
   }

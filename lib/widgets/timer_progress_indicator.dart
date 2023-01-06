@@ -126,6 +126,7 @@ class TimerPainter extends CustomPainter {
     final paint = Paint()
       ..color = color
       ..strokeWidth = 10
+      ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
     canvas.drawArc(rect, start, end, false, paint);
   }
