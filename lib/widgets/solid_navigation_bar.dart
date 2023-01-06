@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
 
 class SolidNavigationBar extends StatelessWidget {
@@ -14,10 +15,10 @@ class SolidNavigationBar extends StatelessWidget {
         return BottomNavigationBar(
           currentIndex: snapshot.data!,
           onTap: bloc.updatePage,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.timer_rounded), label: "Timer"),
-            BottomNavigationBarItem(icon: Icon(Icons.list), label: "My timers"),
+                icon: const Icon(Icons.timer), label: "timer".i18n()),
+            BottomNavigationBarItem(icon: const Icon(Icons.bookmark), label: "saved".i18n()),
           ],
         );
       },
