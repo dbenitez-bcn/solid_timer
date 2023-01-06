@@ -7,7 +7,6 @@ import 'package:solid_timer/domain/models/timer.dart';
 import 'package:solid_timer/persistance/sqflite_configuration_repository.dart';
 import 'package:solid_timer/persistance/sqflite_db_helper.dart';
 import 'package:solid_timer/persistance/sqflite_timer_repository.dart';
-import 'package:solid_timer/widgets/buttons/infinite_button.dart';
 import 'package:solid_timer/widgets/control_buttons.dart';
 import 'package:solid_timer/widgets/timer_buttons.dart';
 import 'package:solid_timer/widgets/timer_view.dart';
@@ -27,7 +26,6 @@ class SolidTimer extends StatelessWidget {
         await timersRepository.getAll(),
         await timersRepository.getLastSelectedTimer() ?? Timer(1, 30),
         await configurationRepository.getIsSoundEnabled(),
-        await configurationRepository.getIsInfiniteRoundEnabled(),
         Status.ready,
         0,
       ),
@@ -54,7 +52,6 @@ class SolidTimer extends StatelessWidget {
                   children: [
                     Row(
                       children: const [
-                        InfiniteButton(),
                         MutedButton(),
                       ],
                     ),

@@ -7,18 +7,8 @@ class SharedPreferencesConfigurationRepository extends ConfigurationRepository {
   SharedPreferencesConfigurationRepository(this.preferences);
 
   @override
-  Future<bool> getIsInfiniteRoundEnabled() async {
-    return preferences.getBool("infinite_round_enabled") ?? false;
-  }
-
-  @override
   Future<bool> getIsSoundEnabled() async {
     return preferences.getBool("sound_enabled") ?? false;
-  }
-
-  @override
-  Future<void> setIsInfiniteRoundEnabled(bool value) async {
-    await preferences.setBool("infinite_round_enabled", value);
   }
 
   @override

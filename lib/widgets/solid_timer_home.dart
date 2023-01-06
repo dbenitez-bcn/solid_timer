@@ -46,7 +46,6 @@ class SolidTimerHome extends StatelessWidget {
         await timersRepository.getAll(),
         await timersRepository.getLastSelectedTimer() ?? Timer(1, 30),
         await configurationRepository.getIsSoundEnabled(),
-        await configurationRepository.getIsInfiniteRoundEnabled(),
         Status.ready,
         0,
       ),

@@ -6,7 +6,6 @@ class AppState {
   List<Timer> timersList;
   Timer lastSelectedTimer;
   bool isSoundEnabled;
-  bool isInfiniteRoundsEnabled;
   Status status;
   int pageIndex;
 
@@ -14,7 +13,6 @@ class AppState {
     this.timersList,
     this.lastSelectedTimer,
     this.isSoundEnabled,
-    this.isInfiniteRoundsEnabled,
     this.status,
     this.pageIndex
   );
