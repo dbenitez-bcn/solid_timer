@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
 import 'package:solid_timer/domain/dtos/app_initializer_dto.dart';
 import 'package:solid_timer/domain/models/app_state.dart';
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 import 'package:solid_timer/persistance/sqflite_configuration_repository.dart';
 import 'package:solid_timer/persistance/sqflite_db_helper.dart';
 import 'package:solid_timer/persistance/sqflite_timer_repository.dart';
@@ -44,7 +44,7 @@ class SolidTimerHome extends StatelessWidget {
     return AppInitializerDto(
       AppState(
         await timersRepository.getAll(),
-        await timersRepository.getLastSelectedTimer() ?? Timer(1, 30),
+        await timersRepository.getLastSelectedTimer() ?? SolidTimer(1, 30, null, null),
         await configurationRepository.getIsSoundEnabled(),
         Status.ready,
         0,

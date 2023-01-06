@@ -4,10 +4,10 @@ import 'package:sqflite/sqflite.dart';
 
 const List<String> _migrations = [
   '''
-  CREATE TABLE timers (id INTEGER PRIMARY KEY, seconds INTEGER NOT NULL)
+  CREATE TABLE timers (id INTEGER PRIMARY KEY, work INTEGER NOT NULL, rest INTEGER, rounds INTEGER)
   ''',
   '''
-  CREATE TABLE last_selected_timer (id INTEGER PRIMARY KEY, seconds INTEGER NOT NULL)
+  CREATE TABLE last_selected_timer (id INTEGER PRIMARY KEY, work INTEGER NOT NULL, rest INTEGER, rounds INTEGER)
   ''',
   '''
   INSERT INTO last_selected_timer(id, seconds) VALUES(1, 60)

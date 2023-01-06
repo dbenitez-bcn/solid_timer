@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 
 class TimerReadyIndicator extends StatelessWidget {
   const TimerReadyIndicator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Timer>(
+    return StreamBuilder<SolidTimer>(
       initialData: SolidTimerBloc.of(context).currentTimer,
       stream: SolidTimerBloc.of(context).selectedTimer,
       builder: (context, snapshot) {
@@ -19,7 +19,7 @@ class TimerReadyIndicator extends StatelessWidget {
                   alignment: AlignmentDirectional.center,
                   children: [
                     Text(
-                      snapshot.data!.toClockFormat(),
+                      snapshot.data!.work.toClockFormat(),
                       style: Theme.of(context)
                           .textTheme
                           .headline1

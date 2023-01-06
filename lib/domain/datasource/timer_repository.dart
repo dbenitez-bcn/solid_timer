@@ -1,9 +1,9 @@
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 
 abstract class TimerRepository {
-  Future<List<Timer>> getAll();
-  Future<Timer> create({required int seconds});
+  Future<List<SolidTimer>> getAll();
+  Future<SolidTimer> create(int work, int? rest, int? rounds);
   Future<void> deleteBy({required int id});
-  Future<Timer?> getLastSelectedTimer();
-  Future<Timer> updateLastSelectedTimer(Timer timer);
+  Future<SolidTimer?> getLastSelectedTimer();
+  Future<SolidTimer> updateLastSelectedTimer(SolidTimer timer);
 }

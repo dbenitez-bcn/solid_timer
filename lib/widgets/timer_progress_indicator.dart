@@ -3,10 +3,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
 import 'package:solid_timer/bloc/status.dart';
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 
 class TimerProgressIndicator extends StatefulWidget {
-  final Timer timer;
+  final SolidTimer timer;
 
   const TimerProgressIndicator({Key? key, required this.timer})
       : super(key: key);
@@ -45,29 +45,29 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
   void initState() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: widget.timer.seconds),
+      duration: Duration(seconds: widget.timer.work.seconds),
     );
     _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
     _controller.repeat();
     super.initState();
   }
 
-  void _onTimerSelected(Timer timer) {
-    if (mounted) {
-      setState(() {
-        _controller = AnimationController(
-          vsync: this,
-          duration: Duration(seconds: timer.seconds),
-        );
-        _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
-      });
-    }
-  }
+  // void _onTimerSelected(SolidTimer timer) {
+  //   if (mounted) {
+  //     setState(() {
+  //       _controller = AnimationController(
+  //         vsync: this,
+  //         duration: Duration(seconds: timer.work.seconds),
+  //       );
+  //       _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     SolidTimerBloc.of(context).status.listen(_onStatusChange);
-    SolidTimerBloc.of(context).selectedTimer.listen(_onTimerSelected);
+    // SolidTimerBloc.of(context).selectedTimer.listen(_onTimerSelected);
 
     return Stack(alignment: AlignmentDirectional.center, children: [
       AnimatedBuilder(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 
 import 'base_solid_timer_button.dart';
 
 class TimerButton extends BaseSolidTimerButton {
-  final Timer timer;
+  final SolidTimer timer;
 
   TimerButton.enabled(
       {Key? key, required this.timer, required BuildContext context})
@@ -14,7 +14,7 @@ class TimerButton extends BaseSolidTimerButton {
           onPressed: () {
             SolidTimerBloc.of(context).select(timer);
           },
-          child: Text(timer.toClockFormat()),
+          child: Text(timer.work.toClockFormat()),
         );
 
   TimerButton.disabled(
@@ -22,7 +22,7 @@ class TimerButton extends BaseSolidTimerButton {
       : super(
           key: key,
           onPressed: null,
-          child: Text(timer.toClockFormat()),
+          child: Text(timer.work.toClockFormat()),
         );
 
   @override

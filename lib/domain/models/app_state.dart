@@ -1,10 +1,10 @@
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 
 import '../../bloc/status.dart';
 
 class AppState {
-  List<Timer> timersList;
-  Timer lastSelectedTimer;
+  List<SolidTimer> timersList;
+  SolidTimer lastSelectedTimer;
   bool isSoundEnabled;
   Status status;
   int pageIndex;

@@ -1,5 +1,5 @@
 import 'package:solid_timer/domain/datasource/timer_repository.dart';
-import 'package:solid_timer/domain/models/timer.dart';
+import 'package:solid_timer/domain/models/solid_timer.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SqfliteTimerRepository extends TimerRepository {
@@ -8,15 +8,15 @@ class SqfliteTimerRepository extends TimerRepository {
   SqfliteTimerRepository(this.database);
 
   @override
-  Future<Timer> create({required int seconds}) async {
-    int id = await database.insert("timers", {"seconds": seconds});
-    return Timer(id, seconds);
+  Future<SolidTimer> create(int work, int? rest, int? rounds) async {
+    int id = await database.insert("timers", {"work": work, "rest": rest, "rounds": rounds});
+    return SolidTimer(id, work, rest, rounds);
   }
 
   @override
-  Future<List<Timer>> getAll() async {
-    final list = await database.query("timers", columns: ["id", "seconds"]);
-    return list.map((e) => Timer.fromMap(e)).toList();
+  Future<List<SolidTimer>> getAll() async {
+    final list = await database.query("timers", columns: ["id", "work", "rest", "rounds"]);
+    return list.map((e) => SolidTimer.fromMap(e)).toList();
   }
 
   @override
@@ -25,23 +25,23 @@ class SqfliteTimerRepository extends TimerRepository {
   }
 
   @override
-  Future<Timer?> getLastSelectedTimer() async {
+  Future<SolidTimer?> getLastSelectedTimer() async {
     var timers = await database.query("last_selected_timer", where: "id = 1");
     if (timers.isNotEmpty) {
-      return Timer.fromMap(timers.first);
+      return SolidTimer.fromMap(timers.first);
     } else {
       return null;
     }
   }
 
   @override
-  Future<Timer> updateLastSelectedTimer(Timer timer) async {
+  Future<SolidTimer> updateLastSelectedTimer(SolidTimer timer) async {
     await database.update(
       "last_selected_timer",
-      {"seconds": timer.seconds},
+      {"work": timer.work, "rest": timer.rest, "rounds": timer.rounds},
       where: "id = 1",
     );
 
-    return Timer(1, timer.seconds);
+    return SolidTimer(1, timer.work.seconds, timer.rest?.seconds, timer.rounds);
   }
 }
