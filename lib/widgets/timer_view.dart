@@ -12,7 +12,7 @@ class TimerView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: StreamBuilder<Status>(
-        initialData: Status.ready,
+        initialData: SolidTimerBloc.of(context).currentStatus,
         stream: SolidTimerBloc.of(context).status,
         builder: (context, snapshot) {
           switch (snapshot.data!) {

@@ -10,7 +10,7 @@ class ControlButtons extends StatelessWidget {
     SolidTimerBloc solidTimerBloc = SolidTimerBloc.of(context);
     return StreamBuilder<Status>(
       stream: solidTimerBloc.status,
-      initialData: Status.ready,
+      initialData: solidTimerBloc.currentStatus,
       builder: (context, snapshot) {
         switch (snapshot.data!) {
           case Status.ready:

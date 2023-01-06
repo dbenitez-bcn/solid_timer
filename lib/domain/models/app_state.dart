@@ -9,11 +9,7 @@ class AppState {
   Status status;
   int pageIndex;
 
-  AppState(
-    this.timersList,
-    this.lastSelectedTimer,
-    this.isSoundEnabled,
-    this.status,
-    this.pageIndex
-  );
+  AppState(this.timersList, this.lastSelectedTimer, this.isSoundEnabled)
+      : status = Status.ready,
+        pageIndex = 0;
 }

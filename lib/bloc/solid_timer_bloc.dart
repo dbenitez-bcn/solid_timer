@@ -45,15 +45,20 @@ class SolidTimerBloc extends InheritedWidget {
 
   int get currentPage => _appState.pageIndex;
 
+  Status get currentStatus => _appState.status;
+
   void play() {
+    _appState.status = Status.playing;
     _statusController.add(Status.playing);
   }
 
   void stop() {
+    _appState.status = Status.ready;
     _statusController.add(Status.ready);
   }
 
   void pause() {
+    _appState.status = Status.waiting;
     _statusController.add(Status.waiting);
   }
 

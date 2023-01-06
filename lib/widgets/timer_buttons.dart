@@ -14,6 +14,7 @@ class TimerButtons extends StatelessWidget {
     var solidTimerBloc = SolidTimerBloc.of(context);
     return StreamBuilder<Status>(
         stream: solidTimerBloc.status,
+        initialData: solidTimerBloc.currentStatus,
         builder: (context, snapshot) {
           Status status = snapshot.data ?? Status.ready;
           return StreamBuilder<List<SolidTimer>>(

@@ -9,7 +9,6 @@ import 'package:solid_timer/persistance/sqflite_db_helper.dart';
 import 'package:solid_timer/persistance/sqflite_timer_repository.dart';
 import 'package:solid_timer/widgets/SolidPageView.dart';
 
-import '../bloc/status.dart';
 import 'SolidNavigationBar.dart';
 
 class SolidTimerHome extends StatelessWidget {
@@ -44,10 +43,9 @@ class SolidTimerHome extends StatelessWidget {
     return AppInitializerDto(
       AppState(
         await timersRepository.getAll(),
-        await timersRepository.getLastSelectedTimer() ?? SolidTimer(1, 30, null, null),
+        await timersRepository.getLastSelectedTimer() ??
+            SolidTimer(1, 30, null, null),
         await configurationRepository.getIsSoundEnabled(),
-        Status.ready,
-        0,
       ),
       configurationRepository,
       timersRepository,
