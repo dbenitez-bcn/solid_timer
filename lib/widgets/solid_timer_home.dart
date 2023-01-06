@@ -7,9 +7,10 @@ import 'package:solid_timer/domain/models/solid_timer.dart';
 import 'package:solid_timer/persistance/sqflite_configuration_repository.dart';
 import 'package:solid_timer/persistance/sqflite_db_helper.dart';
 import 'package:solid_timer/persistance/sqflite_timer_repository.dart';
-import 'package:solid_timer/widgets/SolidPageView.dart';
+import 'package:solid_timer/widgets/buttons/solid_floating_button.dart';
+import 'package:solid_timer/widgets/solid_page_view.dart';
 
-import 'SolidNavigationBar.dart';
+import 'solid_navigation_bar.dart';
 
 class SolidTimerHome extends StatelessWidget {
   const SolidTimerHome({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class SolidTimerHome extends StatelessWidget {
             child: const Scaffold(
               body: SolidPageView(),
               bottomNavigationBar: SolidNavigationBar(),
+              floatingActionButton: SolidFloatingButton(),
             ),
           );
         }
