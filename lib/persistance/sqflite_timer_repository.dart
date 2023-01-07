@@ -38,7 +38,7 @@ class SqfliteTimerRepository extends TimerRepository {
   Future<SolidTimer> updateLastSelectedTimer(SolidTimer timer) async {
     await database.update(
       "last_selected_timer",
-      {"work": timer.work, "rest": timer.rest, "rounds": timer.rounds},
+      {"work": timer.work.seconds, "rest": timer.rest?.seconds, "rounds": timer.rounds},
       where: "id = 1",
     );
 
