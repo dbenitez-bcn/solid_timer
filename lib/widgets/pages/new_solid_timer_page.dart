@@ -219,6 +219,7 @@ class _NewSolidTimerPageState extends State<NewSolidTimerPage> {
                         workTimer.seconds,
                         isRestEnabled ? restTimer.seconds : null,
                         rounds > 0 ? rounds : null);
+                    Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
