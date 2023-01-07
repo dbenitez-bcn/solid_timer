@@ -15,4 +15,17 @@ class SolidTimer {
         work = Timer(map["work"]),
         rest = map["rest"] != null ? Timer(map["rest"]) : null,
         rounds = map["rounds"];
+
+  String toStringFormat() {
+    int total = work.seconds;
+    if (rest != null) {
+      total += rest!.seconds;
+    }
+    if (rounds != null) {
+      total *= rounds!;
+    }
+    int minutes = (total / 60).truncate();
+    int seconds = total - (minutes * 60);
+    return "${minutes > 0 ? "${minutes.toString().padLeft(2, '0')}' " : ""}${seconds.toString().padLeft(2, '0')}''";
+  }
 }

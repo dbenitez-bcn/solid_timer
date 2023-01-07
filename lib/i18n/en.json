@@ -1,9 +1,10 @@
 {
-  "rest": "rest",
-  "work": "work",
+  "rest": "Break",
+  "work": "Work",
   "timer": "Timer",
   "saved": "Saved",
   "new_timer": "New timer",
-  "rounds": "sets",
-  "save": "Save"
+  "rounds": "Sets",
+  "save": "Save",
+  "time": "Time"
 }

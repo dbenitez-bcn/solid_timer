@@ -47,6 +47,8 @@ class SolidTimerBloc extends InheritedWidget {
 
   Status get currentStatus => _appState.status;
 
+  List<SolidTimer> get timersList => _appState.timersList;
+
   void play() {
     _appState.status = Status.playing;
     _statusController.add(Status.playing);
@@ -69,8 +71,10 @@ class SolidTimerBloc extends InheritedWidget {
 
   void addTimer(int work, int? rest, int? rounds) async {
     SolidTimer timer = await _timerRepository.create(work, rest, rounds);
-    loadTimers();
-    select(timer);
+    _appState.timersList.add(timer);
+    _timersController.add(_appState.timersList);
+    // loadTimers();
+    // select(timer);
   }
 
   void remove(int id) async {
@@ -81,6 +85,7 @@ class SolidTimerBloc extends InheritedWidget {
   void select(SolidTimer newTimer) async {
     _appState.lastSelectedTimer = newTimer;
     var timer = await _timerRepository.updateLastSelectedTimer(newTimer);
+    _pageController.add(0);
     _selectedTimerController.add(timer);
   }
 

@@ -226,7 +226,7 @@ class _NewSolidTimerPageState extends State<NewSolidTimerPage> {
                   ),
                   child: Text(
                     "save".i18n(),
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    style: Theme.of(context).textTheme.headline4?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
