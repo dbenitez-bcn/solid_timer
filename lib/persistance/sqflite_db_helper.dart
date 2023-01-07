@@ -10,7 +10,7 @@ const List<String> _migrations = [
   CREATE TABLE last_selected_timer (id INTEGER PRIMARY KEY, work INTEGER NOT NULL, rest INTEGER, rounds INTEGER)
   ''',
   '''
-  INSERT INTO last_selected_timer(id, seconds) VALUES(1, 60)
+  INSERT INTO last_selected_timer(id, work) VALUES(1, 60)
   '''
 ];
 const List<String> _downgrades = [
