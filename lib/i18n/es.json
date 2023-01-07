@@ -3,5 +3,7 @@
   "work": "Trabajo",
   "timer": "Temporizador",
   "saved": "Guardados",
-  "new_timer": "Nuevo temporizador"
+  "new_timer": "Nuevo temporizador",
+  "rounds": "series",
+  "save": "Guardar"
 }

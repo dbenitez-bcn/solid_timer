@@ -11,5 +11,5 @@ class AppState {
 
   AppState(this.timersList, this.lastSelectedTimer, this.isSoundEnabled)
       : status = Status.ready,
-        pageIndex = 0;
+        pageIndex = 1;
 }

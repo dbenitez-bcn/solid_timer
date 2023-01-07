@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
+import 'package:solid_timer/widgets/pages/new_solid_timer_page.dart';
 
 class SolidFloatingButton extends StatelessWidget {
   const SolidFloatingButton({Key? key}) : super(key: key);
@@ -19,7 +20,9 @@ class SolidFloatingButton extends StatelessWidget {
             scale: snapshot.data! == 1 ? 1.0 : 0.0,
             curve: Curves.easeInOut,
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NewSolidTimerPage()));
+              },
               child: const Icon(Icons.add),
             ),
           ),

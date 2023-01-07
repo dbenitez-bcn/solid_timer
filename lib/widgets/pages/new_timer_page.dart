@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:solid_timer/bloc/solid_timer_bloc.dart';
+import 'package:solid_timer/domain/models/timer.dart';
 
-import 'buttons/base_solid_timer_button.dart';
-import 'buttons/rounded_button.dart';
+import '../buttons/base_solid_timer_button.dart';
+import '../buttons/rounded_button.dart';
 
-class NewTimerScreen extends StatefulWidget {
-  final SolidTimerBloc bloc;
+class NewTimerPage extends StatefulWidget {
+  final Function(Timer) onSave;
 
-  const NewTimerScreen({Key? key, required this.bloc}) : super(key: key);
+  const NewTimerPage({Key? key, required this.onSave}) : super(key: key);
 
   @override
-  State<NewTimerScreen> createState() => _NewTimerScreenState();
+  State<NewTimerPage> createState() => _NewTimerPageState();
 }
 
-class _NewTimerScreenState extends State<NewTimerScreen> {
+class _NewTimerPageState extends State<NewTimerPage> {
   String time = "";
 
   void amend(String value) {
@@ -179,7 +179,7 @@ class _NewTimerScreenState extends State<NewTimerScreen> {
                             var tmp = formatTime().split(":");
                             int minutes = int.parse(tmp[0]);
                             int seconds = int.parse(tmp[1]);
-                            widget.bloc.addTimer((minutes * 60) + seconds);
+                            widget.onSave(Timer((minutes * 60) + seconds));
                             Navigator.of(context).pop();
                           }
                         : null,

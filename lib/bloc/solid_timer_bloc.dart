@@ -67,8 +67,8 @@ class SolidTimerBloc extends InheritedWidget {
     select(await _timerRepository.getLastSelectedTimer() ?? SolidTimer(1, 30, null, null));
   }
 
-  void addTimer(int seconds) async {
-    SolidTimer timer = await _timerRepository.create(seconds, null, null);
+  void addTimer(int work, int? rest, int? rounds) async {
+    SolidTimer timer = await _timerRepository.create(work, rest, rounds);
     loadTimers();
     select(timer);
   }
