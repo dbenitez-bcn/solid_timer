@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:localization/localization.dart';
 import 'package:solid_timer/bloc/solid_timer_bloc.dart';
 import 'package:solid_timer/bloc/status.dart';
 import 'package:solid_timer/domain/models/solid_timer.dart';
@@ -19,6 +20,19 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+  // bool _soundPlayed = false;
+  bool _isRestPlaying = false;
+  int? sets;
+
+  // void sound() {
+  //   if (!_soundPlayed) {
+  //     Duration duration = _controller.duration! * (1 - _controller.value);
+  //     if (duration.inSeconds == 3) {
+  //       _soundPlayed = true;
+  //       print("Sound!");
+  //     }
+  //   }
+  // }
 
   String get _timerString {
     Duration duration = _controller.duration! * (1 - _controller.value);
@@ -32,7 +46,7 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
           _controller.reset();
           break;
         case Status.playing:
-          _controller.repeat();
+          _controller.forward();
           break;
         case Status.waiting:
           _controller.stop();
@@ -43,42 +57,78 @@ class _TimerProgressIndicatorState extends State<TimerProgressIndicator>
 
   @override
   void initState() {
+    sets = widget.timer.rounds;
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.timer.work.seconds),
     );
     _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
-    _controller.repeat();
+    // _controller.forward();
     super.initState();
   }
-
-  // void _onTimerSelected(SolidTimer timer) {
-  //   if (mounted) {
-  //     setState(() {
-  //       _controller = AnimationController(
-  //         vsync: this,
-  //         duration: Duration(seconds: timer.work.seconds),
-  //       );
-  //       _animation = Tween<double>(begin: 0.0, end: 1).animate(_controller);
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
     SolidTimerBloc.of(context).status.listen(_onStatusChange);
-    // SolidTimerBloc.of(context).selectedTimer.listen(_onTimerSelected);
+    _animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        if (_isRestPlaying) {
+          _controller.duration = Duration(seconds: widget.timer.work.seconds);
+          if (sets != null) {
+            sets = sets! - 1;
+            if (sets == 0) {
+              SolidTimerBloc.of(context).stop();
+            }
+          }
+          _isRestPlaying = false;
+          _controller.reset();
+          _controller.forward();
+        } else {
+          if (widget.timer.rest == null) {
+            if (sets != null) {
+              sets = sets! - 1;
+              if (sets == 0) {
+                SolidTimerBloc.of(context).stop();
+              }
+            }
+          } else {
+            _isRestPlaying = true;
+            _controller.duration = Duration(seconds: widget.timer.rest!.seconds);
+          }
+          _controller.reset();
+          _controller.forward();
+        }
+      } else if (status == AnimationStatus.forward) {
+        print("Animation forward");
+      } else if (status == AnimationStatus.dismissed) {
+        print("Animation dismissed");
+      } else if (status == AnimationStatus.reverse) {
+        print("Animation reverse");
+      }
+    });
 
     return Stack(alignment: AlignmentDirectional.center, children: [
       AnimatedBuilder(
         animation: _animation,
         builder: (_, child) {
-          return Text(
-            _timerString,
-            style: Theme.of(context)
-                .textTheme
-                .headline1
-                ?.copyWith(fontWeight: FontWeight.w300),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              sets == null
+                  ? const Text("")
+                  : Text(sets! > 1 ? "x$sets" : "last_set".i18n(), style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall,),
+              Text(
+                _timerString,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline1
+                    ?.copyWith(fontWeight: FontWeight.w300),
+              ),
+              Text(_isRestPlaying ? "rest".i18n() : "work".i18n(),
+              style: Theme.of(context).textTheme.displaySmall,),
+            ],
           );
         },
       ),
